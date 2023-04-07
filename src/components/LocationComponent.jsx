@@ -18,15 +18,19 @@ const LocationComponent = () => {
               <p className="fs-5">
                 Condizioni meteo attuali:
                 {(() => {
-                  switch (selectedLocation.weather[0].description) {
+                  const currentHour = new Date().getHours();
+                  const weatherDescription = selectedLocation.weather[0].description;
+                  switch (weatherDescription) {
                     case "cielo sereno":
-                      return " " + selectedLocation.weather[0].description + " 🌞";
-                    case "nubi sparse" || "poche nuvole" || "cielo coperto":
-                      return " " + selectedLocation.weather[0].description + " ☁";
+                      return currentHour >= 20 || currentHour < 6 ? "cielo notturno 🌜" : "cielo sereno 🌞";
+                    case "nubi sparse":
+                    case "poche nuvole":
+                    case "cielo coperto":
+                      return weatherDescription + " ☁";
                     case "pioggia leggera":
-                      return " " + selectedLocation.weather[0].description + " ☂";
+                      return weatherDescription + " ☂";
                     case "neve":
-                      return " " + selectedLocation.weather[0].description + " ❄";
+                      return weatherDescription + " ❄";
                     default:
                       return "";
                   }

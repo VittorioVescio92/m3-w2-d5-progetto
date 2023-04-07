@@ -20,8 +20,15 @@ const LocationWeather = () => {
   const ForecastsByDate = forecasts => {
     return forecasts.reduce((acc, forecast) => {
       const dateTime = forecast.dt_txt.split(" ");
-      const date = dateTime[0];
-      const time = dateTime[1];
+      const date = new Date(forecast.dt * 1000).toLocaleDateString([], {
+        weekday: "short",
+        day: "numeric",
+      });
+      const time =
+        new Date(forecast.dt * 1000).toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        }) + ".00";
       if (acc[date]) {
         acc[date].push({ ...forecast, time });
       } else {
@@ -32,26 +39,47 @@ const LocationWeather = () => {
   };
 
   return (
-    <div>
+    <div className="d-flex justify-content-center">
       {selectedLocation ? (
         <div>
-          <h3>Previsioni meteo per la tua posizione</h3>
-          {forecastData ? (
-            Object.entries(ForecastsByDate(forecastData.list)).map(([date, forecasts]) => (
-              <div key={date}>
-                <h4>{date}</h4>
-                {forecasts.map((forecast, index) => (
-                  <div key={index}>
-                    <p>Orario: {forecast.time}</p>
-                    <p>Condizioni meteo: {forecast.weather[0].description}</p>
-                    <p>Temperatura: {forecast.main.temp}°C</p>
-                  </div>
-                ))}
-              </div>
-            ))
-          ) : (
-            <p>Caricamento in corso...</p>
-          )}
+          <h3>Previsioni meteo per {selectedLocation.name}</h3>
+          <div className="d-flex flex-column my-3">
+            {forecastData ? (
+              Object.entries(ForecastsByDate(forecastData.list)).map(([date, forecasts]) => (
+                <div key={date}>
+                  <h4>{date}</h4>
+                  {forecasts.map((forecast, index) => (
+                    <div key={index}>
+                      <p>Orario: {forecast.time.slice(0, -3)}</p>
+                      <p>
+                        Condizioni meteo: {forecast.weather[0].description}
+                        {(() => {
+                          switch (forecast.weather[0].description) {
+                            case "cielo sereno":
+                              return " 🌞";
+                            case "nubi sparse":
+                            case "poche nuvole":
+                            case "cielo coperto":
+                              return " ☁";
+                            case "pioggia leggera":
+                              return " ☂";
+                            case "neve":
+                              return " ❄";
+                            default:
+                              return "";
+                          }
+                        })()}
+                      </p>
+
+                      <p>Temperatura: {" " + Math.round(forecast.main.temp)}°C</p>
+                    </div>
+                  ))}
+                </div>
+              ))
+            ) : (
+              <p>Caricamento in corso...</p>
+            )}
+          </div>
         </div>
       ) : null}
     </div>

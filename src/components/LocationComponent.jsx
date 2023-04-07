@@ -10,7 +10,7 @@ const LocationComponent = () => {
     <>
       <Row className="d-flex justify-content-center gap-5 my-3">
         <Col xs={12}>
-          <div className="rounded-5 border border-dark p-3 d-flex-justify-content-center">
+          <div className="rounded-5 border border-dark p-5 d-flex-justify-content-center">
             <div>
               <h2>{selectedLocation.name}</h2>
             </div>
@@ -19,22 +19,24 @@ const LocationComponent = () => {
                 Condizioni meteo attuali:
                 {(() => {
                   switch (selectedLocation.weather[0].description) {
-                    case "clear sky":
-                      return selectedLocation.weather[0].description + " 🌞";
-                    case "few clouds":
-                      return selectedLocation.weather[0].description + " ☁";
-                    case "light rain":
-                      return selectedLocation.weather[0].description + " ☂";
+                    case "cielo sereno":
+                      return " " + selectedLocation.weather[0].description + " 🌞";
+                    case "nubi sparse" || "poche nuvole" || "cielo coperto":
+                      return " " + selectedLocation.weather[0].description + " ☁";
+                    case "pioggia leggera":
+                      return " " + selectedLocation.weather[0].description + " ☂";
+                    case "neve":
+                      return " " + selectedLocation.weather[0].description + " ❄";
                     default:
                       return "";
                   }
                 })()}
               </p>
 
-              <p className="fs-5">Temp:{selectedLocation.main.temp}</p>
-              <p className="fs-5">Min:{selectedLocation.main.temp_min}</p>
-              <p className="fs-5">Max:{selectedLocation.main.temp_max}</p>
-              <p className="fs-5">Humidity:{selectedLocation.main.humidity}%</p>
+              <p className="fs-5">Temp:{" " + Math.round(selectedLocation.main.temp)}°C</p>
+              <p className="fs-5">Min:{" " + Math.round(selectedLocation.main.temp_min)}°C</p>
+              <p className="fs-5">Max:{" " + Math.round(selectedLocation.main.temp_max)}°C</p>
+              <p className="fs-5">Umidità:{" " + selectedLocation.main.humidity}%</p>
               <Button variant="warning" onClick={() => navigate(`/${selectedLocation.name}`)}>
                 Vedi previsioni dettagliate
               </Button>

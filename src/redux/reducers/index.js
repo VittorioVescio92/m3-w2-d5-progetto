@@ -1,5 +1,5 @@
-export const initialState = {
-  locationData: [],
+const initialState = {
+  location: { selectedLocation: {} },
 };
 
 const mainReducer = (state = initialState, action) => {
@@ -7,9 +7,10 @@ const mainReducer = (state = initialState, action) => {
     case "DETAILS":
       return {
         ...state,
-        locationData: [...state.locationData, action.payload],
+        location: {
+          selectedLocation: action.payload,
+        },
       };
-
     default:
       return state;
   }

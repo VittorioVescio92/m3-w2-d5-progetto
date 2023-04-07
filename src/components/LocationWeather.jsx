@@ -1,19 +1,21 @@
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
-const LocationWeather = ({ weatherData }) => {
+const LocationWeather = () => {
+  const selectedLocation = useSelector(state => state.location.selectedLocation);
   const [forecastData, setForecastData] = useState(null);
 
   useEffect(() => {
-    if (weatherData) {
+    if (selectedLocation) {
       const Key = "53f42c6c32e4fc8ca77d9279243ee9a8";
-      const endPoint = `https://api.openweathermap.org/data/2.5/forecast?lat=${weatherData.coord.lat}&lon=${weatherData.coord.lon}&units=metric&lang=it&appid=${Key}`;
+      const endPoint = `https://api.openweathermap.org/data/2.5/forecast?lat=${selectedLocation.coord.lat}&lon=${selectedLocation.coord.lon}&units=metric&lang=it&appid=${Key}`;
 
       fetch(endPoint)
         .then(response => response.json())
         .then(data => setForecastData(data))
         .catch(error => console.log(error));
     }
-  }, [weatherData]);
+  }, [selectedLocation]);
 
   const ForecastsByDate = forecasts => {
     return forecasts.reduce((acc, forecast) => {
@@ -31,7 +33,7 @@ const LocationWeather = ({ weatherData }) => {
 
   return (
     <div>
-      {weatherData ? (
+      {selectedLocation ? (
         <div>
           <h3>Previsioni meteo per la tua posizione</h3>
           {forecastData ? (

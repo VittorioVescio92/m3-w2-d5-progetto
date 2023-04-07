@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { Button, Form, Col, Row } from "react-bootstrap";
 import LocationComponent from "./LocationComponent";
+import { useSelector, useDispatch } from "react-redux";
 
-const HomePage = () => {
+const HomePage = props => {
   const [location, setLocation] = useState("");
   const [locationData, setLocationData] = useState([]);
-  const [selectedLocationData, setselectedLocationData] = useState([]);
+  const selectedLocation = useSelector(state => state.location.selectedLocation);
+  const dispatch = useDispatch();
 
   const baseEndpoint = `http://api.openweathermap.org/geo/1.0/direct?q=`;
   const APIkey = "53f42c6c32e4fc8ca77d9279243ee9a8";
@@ -21,7 +23,7 @@ const HomePage = () => {
         if (response.ok) {
           return response.json();
         } else {
-          throw new Error("Error in fetch");
+          throw new Error("Error");
         }
       })
       .then(data => {
@@ -45,7 +47,7 @@ const HomePage = () => {
         }
       })
       .then(data => {
-        setselectedLocationData(data);
+        dispatch({ type: "DETAILS", payload: data });
       })
       .catch(error => {
         console.log(error);
@@ -72,9 +74,7 @@ const HomePage = () => {
           </Form>
         </Col>
         <Col xs={8} className="mx-auto my-3">
-          {selectedLocationData.name && (
-            <LocationComponent key={selectedLocationData.id} weatherData={selectedLocationData} />
-          )}
+          {selectedLocation.name && <LocationComponent key={selectedLocation.id} />}
         </Col>
       </Row>
     </>

@@ -1,14 +1,13 @@
-const initialState = {};
+export const initialState = {
+  locationData: [],
+};
 
 const mainReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "":
+    case "DETAILS":
       return {
-        // ...state,
-        // favourites: {
-        //   ...state.favourites,
-        //   content: [...state.favourites.content, action.payload],
-        // },
+        ...state,
+        locationData: [...state.locationData, action.payload],
       };
 
     default:

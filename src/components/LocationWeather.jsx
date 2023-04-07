@@ -6,7 +6,7 @@ const LocationWeather = ({ weatherData }) => {
   useEffect(() => {
     if (weatherData) {
       const Key = "53f42c6c32e4fc8ca77d9279243ee9a8";
-      const endPoint = `https://api.openweathermap.org/data/2.5/forecast?lat=${weatherData.coord.lat}&lon=${weatherData.coord.lon}&units=metric&appid=${Key}`;
+      const endPoint = `https://api.openweathermap.org/data/2.5/forecast?lat=${weatherData.coord.lat}&lon=${weatherData.coord.lon}&units=metric&lang=it&appid=${Key}`;
 
       fetch(endPoint)
         .then(response => response.json())

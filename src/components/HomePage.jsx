@@ -16,7 +16,7 @@ const HomePage = () => {
 
   const handleSearch = e => {
     e.preventDefault();
-    fetch(baseEndpoint + location + "&appid=" + APIkey)
+    fetch(baseEndpoint + location + "&lang=it&appid=" + APIkey)
       .then(response => {
         if (response.ok) {
           return response.json();
@@ -35,7 +35,7 @@ const HomePage = () => {
   };
 
   const WeatherSearch = (lat, lon) => {
-    const weatherEndpoint = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${APIkey}`;
+    const weatherEndpoint = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&lang=it&appid=${APIkey}`;
     fetch(weatherEndpoint)
       .then(response => {
         if (response.ok) {

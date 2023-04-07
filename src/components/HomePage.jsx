@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Form, Col, Row } from "react-bootstrap";
+import { Button, Form, Col, Row, InputGroup } from "react-bootstrap";
 import NavBar from "./Navbar";
 import LocationComponent from "./LocationComponent";
 
@@ -56,23 +56,25 @@ const HomePage = () => {
     <>
       <NavBar />
       <Row>
-        <Col xs={10} className="mx-auto my-3">
+        <Col xs={8} className="mx-auto my-3">
           <h1>Località:</h1>
         </Col>
-        <Col xs={10} className="mx-auto">
-          <Form>
+        <Col xs={8} className="mx-auto">
+          <Form className="position-relative input-group">
             <Form.Control
               type="search"
               value={location}
               onChange={handleChange}
               placeholder="Inserisci la località che vuoi ricercare"
             />
-            <Button onClick={handleSearch}>Cerca</Button>
+            <Button className="p-3" onClick={handleSearch}>
+              Cerca
+            </Button>
           </Form>
         </Col>
-        <Col xs={10} className="mx-auto mb-5">
+        <Col xs={8} className="mx-auto my-3">
           {selectedLocationData.name && (
-            <LocationComponent key={selectedLocationData.name} weatherData={selectedLocationData} />
+            <LocationComponent key={selectedLocationData.id} weatherData={selectedLocationData} />
           )}
         </Col>
       </Row>

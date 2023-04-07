@@ -11,9 +11,6 @@ const NavBar = () => {
       <Link className="navbar-brand fw-bold" to="/">
         <p>Home</p>
       </Link>
-      <Link className="navbar-brand fw-bold" to="/favourites">
-        <p>Favourites</p>
-      </Link>
     </Navbar>
   );
 };

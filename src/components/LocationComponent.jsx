@@ -9,19 +9,39 @@ const LocationComponent = ({ weatherData }) => {
 
   return (
     <>
-      <Row className="d-flex">
-        <Col xs={5}>
-          <h2>{weatherData.name}</h2>
-          <p>Condizioni meteo attuali: {weatherData.weather[0].description}</p>
-          <p>Temp:{weatherData.main.temp}</p>
-          <p>Min:{weatherData.main.temp_min}</p>
-          <p>Max:{weatherData.main.temp_max}</p>
-          <p>Humidity:{weatherData.main.humidity}%</p>
-          {/* <Button variant="warning">
+      <Row className="d-flex justify-content-center gap-5 my-3">
+        <Col xs={12}>
+          <div className="rounded-5 border border-dark p-3 d-flex-justify-content-center">
+            <div>
+              <h2>{weatherData.name}</h2>
+            </div>
+            <div>
+              <p className="fs-5">
+                Condizioni meteo attuali:
+                {(() => {
+                  switch (weatherData.weather[0].description) {
+                    case "clear sky":
+                      return weatherData.weather[0].description + " 🌞";
+                    case "few clouds":
+                      return weatherData.weather[0].description + " ☁";
+                    case "light rain":
+                      return weatherData.weather[0].description + " ☂";
+                    default:
+                      return "";
+                  }
+                })()}
+              </p>
+
+              <p className="fs-5">Temp:{weatherData.main.temp}</p>
+              <p className="fs-5">Min:{weatherData.main.temp_min}</p>
+              <p className="fs-5">Max:{weatherData.main.temp_max}</p>
+              <p className="fs-5">Humidity:{weatherData.main.humidity}%</p>
+              {/* <Button variant="warning">
             <Link to={`/${weatherData.name}`}>Vedi previsioni dettagliate</Link>
           </Button> */}
-        </Col>
-        <Col xs={7}>
+            </div>
+          </div>
+
           <LocationWeather weatherData={weatherData} />
         </Col>
       </Row>

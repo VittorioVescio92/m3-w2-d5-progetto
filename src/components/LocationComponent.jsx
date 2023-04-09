@@ -1,6 +1,7 @@
 import { Button, Col, Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+// import { TiWeatherSunny } from 'react-icons/ti';
 
 const LocationComponent = () => {
   const selectedLocation = useSelector(state => state.location.selectedLocation);
@@ -8,9 +9,9 @@ const LocationComponent = () => {
 
   return (
     <>
-      <Row className="d-flex justify-content-center gap-5 my-3">
+      <Row className="d-flex justify-content-center gap-5 my-2">
         <Col xs={12}>
-          <div className="rounded-5 border border-dark p-5 d-flex-justify-content-center">
+          <div className="rounded-5  p-5 d-flex-justify-content-center">
             <div>
               <h2>{selectedLocation.name}</h2>
             </div>
@@ -28,6 +29,7 @@ const LocationComponent = () => {
                     case "cielo coperto":
                       return weatherDescription + " ☁";
                     case "pioggia leggera":
+                    case "pioggia moderata":
                       return weatherDescription + " ☂";
                     case "neve":
                       return weatherDescription + " ❄";

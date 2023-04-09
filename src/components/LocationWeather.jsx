@@ -39,21 +39,23 @@ const LocationWeather = () => {
   };
 
   return (
-    <div className="d-flex justify-content-center px-5">
+    <div id="località" className="d-flex justify-content-center px-3 px-md-5">
       {selectedLocation ? (
         <div>
-          <div className="d-flex flex-column my-3 justify-content-center">
-            <h3 className="text-center">Previsioni meteo per {selectedLocation.name}</h3>
+          <div className="d-flex flex-column my-3 justify-content-center container">
+            <h3 id="forecast" className="text-center shadow rounded-5 py-4 text-light">
+              Previsioni meteo per {selectedLocation.name}
+            </h3>
             {forecastData ? (
               <>
                 {Object.entries(ForecastsByDate(forecastData.list)).map(([date, forecasts]) => (
-                  <div key={date}>
-                    <h4 className="text-center fs-3 mt-2">{date}</h4>
+                  <div id="forecast" className="rounded-5 shadow my-2 px-5" key={date}>
+                    <h4 className="text-center fs-3 mt-2 pt-2">{date}</h4>
                     <Row>
                       {forecasts.map((forecast, index) => (
                         <Col md={4} lg={3} className="text-center p-2" key={index}>
-                          <div className="border border-dark rounded-5 p-3 mb-3">
-                            <p className="fs-5 fw-semibold">
+                          <div id="card" className="border border-dark rounded-5 p-3 mb-3">
+                            <p className="fs-5 fw-semibold ">
                               Orario: {forecast.time.slice(0, -3)}
                               {(() => {
                                 switch (forecast.weather[0].description) {
@@ -69,6 +71,7 @@ const LocationWeather = () => {
                                   case "cielo coperto":
                                     return " ☁";
                                   case "pioggia leggera":
+                                  case "pioggia moderata":
                                     return " ☂";
                                   case "neve":
                                     return " ❄";

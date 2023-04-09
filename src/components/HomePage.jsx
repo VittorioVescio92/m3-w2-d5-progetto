@@ -56,24 +56,26 @@ const HomePage = props => {
 
   return (
     <>
-      <Row>
-        <Col xs={8} className="mx-auto my-3">
-          <h1>Località:</h1>
-        </Col>
-        <Col xs={8} className="mx-auto">
-          <Form className="position-relative input-group" onSubmit={handleSearch}>
-            <Form.Control
-              type="search"
-              value={location}
-              onChange={handleChange}
-              placeholder="Inserisci la località che vuoi ricercare"
-            />
-            <Button type="submit" className="p-3">
-              Cerca
-            </Button>
-          </Form>
-        </Col>
-        <Col xs={8} className="mx-auto my-3">
+      <Row className="mb-5">
+        <div id="località" className="py-5 mb-2">
+          <Col xs={8} className="mx-auto py-4">
+            <h2 className="text-dark fs-1">Località:</h2>
+          </Col>
+          <Col xs={8} className="mx-auto pb-5">
+            <Form className="position-relative input-group" onSubmit={handleSearch}>
+              <Form.Control
+                type="search"
+                value={location}
+                onChange={handleChange}
+                placeholder="Inserisci la località"
+              />
+              <Button type="submit" className="p-3">
+                Cerca
+              </Button>
+            </Form>
+          </Col>
+        </div>
+        <Col xs={8} className="mx-auto my-3 shadow rounded-5">
           {selectedLocation.name && <LocationComponent key={selectedLocation.id} />}
         </Col>
       </Row>

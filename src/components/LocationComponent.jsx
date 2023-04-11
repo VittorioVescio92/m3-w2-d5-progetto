@@ -50,7 +50,8 @@ const LocationComponent = () => {
               </div>
             </Col>
             <Col xs={6} className="d-flex justify-content-center align-items-center">
-              <WeatherAnimation weatherCode={selectedLocation.weather[0].description} />
+              {/* <WeatherAnimation weatherCode={selectedLocation.weather[0].description} /> */}
+              {/* non capisco perchè non mi pesca gli svg da utilizzare per l'animazione */}
             </Col>
           </Row>
         </Col>
